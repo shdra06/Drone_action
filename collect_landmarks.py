@@ -4,16 +4,16 @@ import numpy as np
 import csv
 import os
 
-# Initialize CVZone Hand Detector
+
 detector = HandDetector(maxHands=1, detectionCon=0.8)
 
 DATA_FILE = "hand_data.csv"
 
-# Check if file exists to write headers
+
 if not os.path.exists(DATA_FILE):
     with open(DATA_FILE, 'w', newline='') as f:
         writer = csv.writer(f)
-        # 21 landmarks * 3 coordinates + label
+       
         header = []
         for i in range(21):
             header.extend([f"x{i}", f"y{i}", f"z{i}"])
@@ -24,7 +24,7 @@ def save_landmarks(lmList, label):
     data = []
     if len(lmList) < 21: return
 
-    # Normalize
+  
     base_x, base_y, base_z = lmList[0][0], lmList[0][1], lmList[0][2]
     scale_ref = np.linalg.norm(np.array(lmList[5]) - np.array(lmList[0]))
     if scale_ref == 0: scale_ref = 1

@@ -10,7 +10,6 @@ MODEL_FILE = "gesture_model.pkl"
 
 def main():
     try:
-        # 1. Load Data
         df = pd.read_csv(DATA_FILE)
         if df.empty:
             print("Error: Dataset is empty.")
@@ -27,8 +26,7 @@ def main():
         # Split
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-        # 3. Build Neural Network (Multi-Layer Perceptron)
-        # Hidden layers: (128, 64, 32) neurons - similar to our Keras model
+       
         print("Training Neural Network (MLPClassifier)...")
         model = MLPClassifier(hidden_layer_sizes=(128, 64, 32),
                               activation='relu',
@@ -37,14 +35,14 @@ def main():
                               random_state=42,
                               verbose=True)
 
-        # 4. Train
+       
         model.fit(X_train, y_train)
 
-        # 5. Evaluate
+        
         accuracy = model.score(X_test, y_test)
         print(f"\nFinal Test Accuracy: {accuracy*100:.2f}%")
 
-        # 6. Save Model
+        
         with open(MODEL_FILE, 'wb') as f:
             pickle.dump(model, f)
         print(f"Model saved to {MODEL_FILE}")
